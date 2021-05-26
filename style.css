@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+/*Lato font-type from Google fonts above*/
+/* '*' is a universal selector*/
+ * {
+   box-sizing: border-box;
+ }
+
+ body {
+   /*vh means viewport heights(whole viewport)*/
+   height: 100vh;
+   margin: 0;
+   font-family: 'Lato', sans-serif;
+    /*to do the gradient = color starts really light and ends really dark,
+    rgb for first color 247, rgb for second is  */
+   background-image: linear-gradient(0deg,
+   rgb(247, 247, 247) 23.8%,
+   rgb(252, 221, 221) 92%);
+  /*using flex-box to center everything*/
+   display: flex;
+   /*put everything vertical and direct in the middle*/
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+ }
+ /*music container below which will wrap everything except for h1*/
+ .music-container {
+   background-color: #fff;
+   border-radius: 15px;
+   /*offsets 0 20, blur 20 0, 0.6 for alpha */
+   box-shadow: 0 20px 20px 0 rgba(252, 169, 169, 0.6);
+   /*using flex to put everything in a row*/
+   display: flex;
+   /*20px top, 30px bottom*/
+   padding: 20px 30px;
+   /*position is relative because we will position the info
+   absolute inside of it*/
+   position: relative;
+   /*100px top and bottom, 0 left and right*/
+   margin: 100px 0;
+   /*using z-index to position items on z-axis,
+   items can be put on each other (3d demention)*/
+   z-index: 10;
+ }
+
+ .img-container {
+   position: relative;
+   width: 110px;
+ }
+/*to create a spot inside of an img we use pseudo selector as below
+we dont need to put anything inside of content if we want to leave it empty*/
+ .img-container::after {
+   content: '';
+   background-color: #fff;
+   height: 20px;
+   width: 20px;
+   /*the position of parent element makes an influence on element with absolute position,
+   other elements on the page are displayed as if absolute element does not exist*/
+   position: absolute;
+   left: 50%;
+   bottom: 50%;
+   border-radius: 50%;
+   /*to put a white spot in the middle of image we need to get rid of edges,
+   we use transform: translate -50% on x and y axis to change the position of
+   element. with transform u can chamge a scale, form or position of element*/
+   transform: translate(-50%, -50%);
+ }
+
+ .img-container img {
+   /*if we set width to inherit image will become 110px as above. inherit is used
+   to apply a value of parent item to the child item property as below*/
+   width: inherit;
+   height: 110px;
+   border-radius: 50%;
+   /*object-fit defines how a content of img/video shall fill the container due
+    to height and width*/
+   object-fit: cover;
+   /*you can change position of absolute element using left, right, top, bottom*/
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   /*to rotate an img we create an animation using keyframe,
+   to make rotation keep going we use 'infinite' as below
+   linear means the animation has the same speed from start to end*/
+   animation: rotate 3s linear infinite;
+   /*to pause animation*/
+   animation-play-state: paused;
+ }
+ /*music container class 'play' to make image running with a song*/
+ .music-container.play .img-container img {
+    animation-play-state: running;
+ }
+ /*rotate is the name of keyframe, we create 'from' and 'to' for animation
+ it starts from 0deg and to make it spin around with rotate(360deg)*/
+ @keyframes rotate {
+   from {
+     transform: rotate(0deg);
+   }
+   to {
+     transform: rotate(360deg);
+   }
+ }
+ /*Navigation*/
+ .navigation {
+   /*we use display:flex to place buttons side by side*/
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: 1;
+ }
+/*the class below is for all buttons*/
+ .action-btn {
+  background-color: #fff;
+  /*to remove all borders around buttons*/
+  border: 0;
+  color: #dfdbdf;
+  font-size: 20px;
+  /*cursor property specifies the mouse cursor to be displayed when pointing over an element*/
+  cursor: pointer;
+  padding: 10px;
+  margin: 0 20px;
+ }
+  /*play button class*/
+ .action-btn-big {
+   color: #cdc2d0;
+   font-size: 30px;
+ }
+ /*to remove button outline, see below*/
+ .action-btn: focus {
+   outline: 0;
+ }
+/*music info*/
+.music-info {
+  background-color: rgba(255, 255, 255, 0.5);
+  /*15px top right and left, 0 on the bottom */
+  border-radius: 15px 15px 0 0;
+  position: absolute;
+  top: 0;
+  left: 20px;
+  /*calc - function which performs a calculation*/
+  width: calc(100% - 40px);
+  /*10px - top,right,bottom; 150px - left for padding*/
+  padding: 10px 10px 10px 150px;
+  /*use 'opacity' property to set opacity level for a <div> element
+  0 means it is completely transparent */
+  opacity: 0;
+  transform: translateY(0%);
+  /*transition should be on transform property, because it moves the element up and down
+  with translateY(), transitions allows you to change property values smoothly
+  over given duration;
+  ease-in specifies a transition effect with a slow start*/
+  transition: transform 0.3s ease-in, opacity 0.3s ease-in;
+}
+  /*the 'music-info' class with heading 'h4' to style song titles*/
+  .music-info h4 {
+    margin: 0;
+  }
+  /*when the music playing, music-info container comes up, to do this see below
+  we set opacity to 1 and to place it on top, we translate it on Y axis (-100%)*/
+  .music-container.play .music-info {
+    opacity: 1;
+    transform: translateY(-100%);
+  }
+
+  /*progress classes*/
+  /* we create a container for song progress bar,
+  we use pointer to point on progress bar and change to some point in the song*/
+  .progress-container {
+    background: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+    height: 4px;
+    width: 100%;
+  }
+  /*actual bar with coloring inside is below*/
+  .progress {
+    background-color: #fe8daa;
+    border-radius: 5px;
+    /*height will take a 100% of its container*/
+    height: 100%;
+    /*width will be changed, when we play a song*/
+    width: 0%;
+    /*transition: width means that 'progress' element will go
+    with the song progress on the bar*/
+    transition: width 0.1s linear;
+  }

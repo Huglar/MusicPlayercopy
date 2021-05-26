@@ -14,39 +14,40 @@
 
   <body>
     <h1>Music Player</h1>
-  <!--container below will wrap everything-->
-      <div class="music-container">
+  <!--container below will wrap everything,'play' is added to display song title-->
+    <div class="music-container">
         <!--container below will hold song title and progress bar-->
         <div class="music-info">
           <!--h4 below is gonna be populated dinamically with JavaScript-->
           <h4 id="title">Ukulele</h4>
-          <div class="progress-conatainer">
+          <div class="progress-container">
             <!--container below will filled dynamically-->
             <div class="progress"></div>
           </div>
         </div>
+        <!--with id="audio" we can grab song in JavaScript -->
+      <audio src="music/ukulele.mp3" id="audio"></audio>
+      <!--container below is where our image is going to go-->
+      <div class="img-container">
+        <img src="images/ukulele.jpg" alt="music-cover" id="cover">
       </div>
-      <!--with id="audio" we can grab song in JavaScript -->
-    <audio src="music/ukulele.mp3" id="audio"></audio>
-    <!--container below is where our image is going to go-->
-    <div class="img-container">
-      <img src="images/ukulele.jpg" alt="music-cover" id="cover">
-    </div>
 
-    <div class="navigation">
-      <!--button that has an icon from font-awesome font-->
-      <button id="prev" class="action-btn">
-        <i class="fas fa-backward"></i>
-      </button>
-        <!--play is bigger so we add class "action-btn-big"-->
-      <button id="play" class="action-btn action-btn-big">
-        <i class="fas fa-play"></i>
-      </button>
-      <button id="next" class="action-btn">
-        <i class="fas fa-forward"></i>
-      </button>
+      <div class="navigation">
+        <!--button that has an icon from font-awesome font-->
+        <button id="prev" class="action-btn">
+          <i class="fas fa-backward"></i>
+        </button>
+          <!--play is bigger so we add class "action-btn-big"-->
+        <button id="play" class="action-btn action-btn-big">
+          <i class="fas fa-play"></i>
+        </button>
+        <button id="next" class="action-btn">
+          <i class="fas fa-forward"></i>
+        </button>
 
-    </div>
+      </div>
+
+     </div>
 
     <!--link to JavaScript file-->
     <script src="script.js"></script>
